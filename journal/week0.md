@@ -92,7 +92,7 @@ Here is a link that shows a ![billing alarm]()
 **Task 7**
 ### Created an AWS Budget via AWC CLI
 
-I followed the instructions in the ![AWS CLI Reference Documentation](https://docs.aws.amazon.com/cli/latest/reference/budgets/create-budget.html#examples) to create a Cost and Usage Budget
+I followed the instructions in the [AWS CLI Reference Documentation](https://docs.aws.amazon.com/cli/latest/reference/budgets/create-budget.html#examples) to create a Cost and Usage Budget
 
 I created an as folder where i created a json folder
 

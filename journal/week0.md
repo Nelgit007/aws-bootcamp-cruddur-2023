@@ -89,7 +89,7 @@ The budget templates are in json format
 
 I enabled Billing on my AWS Account
 
-Here is a [link](assets/AWS-Billing-Alarm.png) that shows billing in my root account
+Here is a [link](assets/aws-billing%2C%20week%20-%200.png.png) that shows billing in my root account
 
 
 ### Created A Billing Alarm
@@ -108,7 +108,7 @@ I was prompted to go to my email and activate the SNS notification
 
 Here is my billing alarm set 
 
-![billing alarm](assets/AWS-Billing-Alarm.png)
+![billing alarm](assets/aws-billing%2C%20week%20-%200.png.png)
 
 
 

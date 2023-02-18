@@ -94,11 +94,19 @@ Here is a ![link]() that shows billing in my root account
 
 ### Created A Billing Alarm
 
-I created a billing alarm in my AWS account
+I enabled Alarm using CloudWatch service in AWS
 
-I ceated an SNS Topic
+I set the metrics for the alarm to Billing
 
-Here is a link that shows ![billing alarm]()
+I set the amount to $10
+
+I created a new SNS Topic **Cloud-Project-Billing_Alarm** and attached an email
+
+Gave my Alarm a name and created the alarm
+
+I was prompted to go to my email and activate the SNS notification
+
+Here is a link that shows ![billing alarm](assets/AWS-Billing-Alarm.png)
 
 
 

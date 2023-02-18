@@ -73,24 +73,7 @@ tasks:
 ```
 
 **Task 6**
-### Enable Billing
-
-I enabled Billing on my AWS Account
-
-Here is a ![link]() that shoes billing in my root account
-
-
-### Created A Billing Alarm
-
-I created a billing alarm in my AWS account
-
-I ceated an SNS Topic
-
-Here is a link that shows a ![billing alarm]()
-
-
-**Task 7**
-### Created an AWS Budget via AWC CLI
+### Created an AWS Budget via AWS CLI
 
 I followed the instructions in the [AWS CLI Reference Documentation](https://docs.aws.amazon.com/cli/latest/reference/budgets/create-budget.html#examples) to create a Cost and Usage Budget
 
@@ -99,6 +82,25 @@ I created an as folder where i created a json folder
 I added templates for my budget ans SNS service inside of the folder
 
 The budget templates are in json format
+
+
+**Task 7**
+### Enable Billing
+
+I enabled Billing on my AWS Account
+
+Here is a ![link]() that shows billing in my root account
+
+
+### Created A Billing Alarm
+
+I created a billing alarm in my AWS account
+
+I ceated an SNS Topic
+
+Here is a link that shows ![billing alarm]()
+
+
 
 
 

@@ -89,7 +89,7 @@ The budget templates are in json format
 
 I enabled Billing on my AWS Account
 
-Here is a ![link]() that shows billing in my root account
+Here is a [link](assets/AWS-Billing-Alarm.png) that shows billing in my root account
 
 
 ### Created A Billing Alarm

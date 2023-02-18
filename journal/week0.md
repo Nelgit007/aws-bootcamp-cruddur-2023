@@ -32,5 +32,78 @@ I created a zero-spend-budget in my AWS Account
 
 Here is a link to
 
+**Task 5**
+### Installing AWS CLI
+
+I Installed the AWS CLI following the ![AWS CLI Installation documentation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
+I configured the environmantl variable on the CLI for user Nelson_O using the step outlined ![here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
+
+
+set env variables
+```sh
+export AWS_ACCESS_KEY_ID=""
+export AWS_SECRET_ACCESS_KEY=""
+export AWS_DEFAULT_REGION=""
+```
+
+
+I set gitpod to remember env variables
+```sh
+gp env AWS_ACCESS_KEY_ID=""
+gp env AWS_SECRET_ACCESS_KEY=""
+gp env AWS_DEFAULT_REGION=""
+```
+
+
+I modified the .gitpod configuration file to include the following task
+
+```sh
+tasks:
+  - name: aws-cli
+    env:
+      AWS_CLI_AUTO_PROMPT: on-partial
+    init: |
+      cd /workspace
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      unzip awscliv2.zip
+      sudo ./aws/install
+      cd $THEIA_WORKSPACE_ROOT
+
+```
+
+**Task 6**
+### Enable Billing
+
+I enabled Billing on my AWS Account
+
+Here is a ![link]() that shoes billing in my root account
+
+
+### Created A Billing Alarm
+
+I created a billing alarm in my AWS account
+
+I ceated an SNS Topic
+
+Here is a link that shows a ![billing alarm]()
+
+
+**Task 7**
+### Created an AWS Budget via AWC CLI
+
+I followed the instructions in the ![AWS CLI Reference Documentation](https://docs.aws.amazon.com/cli/latest/reference/budgets/create-budget.html#examples) to create a Cost and Usage Budget
+
+I created an as folder where i created a json folder
+
+I added templates for my budget ans SNS service inside of the folder
+
+The budget templates are in json format
+
+
+
+
+
+
 
 

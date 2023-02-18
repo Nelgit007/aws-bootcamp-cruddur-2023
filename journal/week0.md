@@ -7,13 +7,15 @@
 I created a napkin design for the cruddur application
 
 Here is my [napkin]()
+
 ![Conceptual Diagram]()
 
 **Task 2**
 
 I created my Logical Architectural Diagram for the cruddur app using Lucid
 
-Here is my [Logical Diagrram with Lucid]()
+Here is my [Logical Diagram with Lucid]()
+
 ![Logical Architectural Diagram]()
 
 **Task 3**

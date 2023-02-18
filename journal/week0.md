@@ -106,9 +106,9 @@ Gave my Alarm a name and created the alarm
 
 I was prompted to go to my email and activate the SNS notification
 
-Here is my billing alarm set
+Here is my billing alarm set 
 
-[billing alarm](assets/AWS-Billing-Alarm.png)
+![billing alarm](assets/AWS-Billing-Alarm.png)
 
 
 

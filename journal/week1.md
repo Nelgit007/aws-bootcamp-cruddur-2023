@@ -153,7 +153,7 @@ To run multiple containers, had to create a docker-compose.yaml file
 
 ### Creating a docker-compose file
 
-Create `docker-compose.yml` at the root of your project.
+I Created a `docker-compose.yml` at the root of your project.
 
 ```yaml
 version: "3.8"

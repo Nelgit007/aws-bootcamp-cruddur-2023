@@ -61,17 +61,126 @@ CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
 
 ### Build Container For Backend Application
 
-From the application dir, I ran the following command to build the container defined in the docker file above;
+From the application dir, I ran the following command to build the container image defined in the docker file above;
 
 ```sh
 docker build -t  backend-flask ./backend-flask
 ```
 
-RUN
+RUN, to run the image
 ```sh
 docker run --rm -p 4567:4567 -it -e FRONTEND_URL='*' -e BACKEND_URL='*' backend-flask
 ```
 
+### Sending Curl to Test Server
 
 
+I sent the following request to test the server on port 4567
+
+```sh
+curl -X GET http://localhost:4567/api/activities/home -H "Accept: application/json" -H "Content-Type: application/json"
+```
+
+Here is my containerized [Backedne App]()
+
+
+### To Gain Access to the Container
+
+
+I ran the following commmand:
+
+```sh
+docker exec <CONTAINER_ID> -it /bin/bash
+```
+
+### Delete Image
+
+I removed built image with: 
+```sh
+docker image rm backend-flask
+```
+
+NB: To forcefully remove image run
+```sh
+docker image rm backend-flask --force
+```
+
+
+## Containerizing Frontend of Cruddur Application
+
+### Run NPM Install
+
+I had to run NPM Install before building the container since it needs to copy the contents of node_modules
+
+```
+cd frontend-react-js
+npm i
+```
+
+### Create Docker File
+
+I Created a dockerfile for the frontend app @: `frontend-react-js/Dockerfile`
+
+```dockerfile
+FROM node:16.18
+
+ENV PORT=3000
+
+COPY . /frontend-react-js
+WORKDIR /frontend-react-js
+RUN npm install
+EXPOSE ${PORT}
+CMD ["npm", "start"]
+```
+
+### Build the Container
+
+
+RUN
+```sh
+docker build -t frontend-react-js ./frontend-react-js
+```
+
+### To Run the Container
+
+```sh
+docker run -p 3000:3000 -d frontend-react-js
+```
+
+## Multiple Containers
+
+To run multiple containers, had to create a docker-compose.yaml file
+
+### Creating a docker-compose file
+
+Create `docker-compose.yml` at the root of your project.
+
+```yaml
+version: "3.8"
+services:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    build: ./backend-flask
+    ports:
+      - "4567:4567"
+    volumes:
+      - ./backend-flask:/backend-flask
+  frontend-react-js:
+    environment:
+      REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    build: ./frontend-react-js
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend-react-js:/frontend-react-js
+
+# the name flag is a hack to change the default prepend folder
+# name when outputting the image names
+networks: 
+  internal-network:
+    driver: bridge
+    name: cruddur
+```
 

@@ -81,7 +81,7 @@ I sent the following request to test the server on port 4567
 curl -X GET http://localhost:4567/api/activities/home -H "Accept: application/json" -H "Content-Type: application/json"
 ```
 
-Here is my containerized Backend appllication looks:
+Here is how my containerized Backend Application looks:
 
 
 ![Backedne App](assets/backend%20data%20from%20container.png)
@@ -152,11 +152,11 @@ docker run -p 3000:3000 -d frontend-react-js
 
 ## Multiple Containers
 
-To run multiple containers, had to create a docker-compose.yaml file
+To run multiple containers, I created a docker-compose.yaml file
 
 ### Creating a docker-compose file
 
-I Created a `docker-compose.yml` at the root of your project.
+I Created a `docker-compose.yml` at the root of my project.
 
 ```yaml
 version: "3.8"
@@ -193,7 +193,7 @@ I ran the command
 docker-compose up
 ```
 
-Hers is how my catainerized app looks:
+Here is how my catainerized app looks:
 
 ![Containerized Cruddur App](assets/Cruddur-app-up.png)
 

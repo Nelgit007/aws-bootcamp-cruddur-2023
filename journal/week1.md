@@ -251,5 +251,3 @@ docker image rm backend-flask --force
 ```sh
 FLASK_ENV=production PORT=8080 docker run -p 4567:4567 -it backend-flask
 ```
-
-> Look at Dockerfile to see how ${PORT} is interpolated

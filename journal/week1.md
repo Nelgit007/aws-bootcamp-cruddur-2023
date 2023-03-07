@@ -32,7 +32,7 @@ I proceeded to append the url `/api/activities/home` to the link opened on my br
 
 See outcome below;
 
-[App Backend data](!https://github.com/Nelgit007/aws-bootcamp-cruddur-2023/blob/main/journal/assets/Backend%20data.png)
+![App Backend data](assets/Backend%20data.png)
 
 I then stopped the running application, then unset the Backend and Frontend URL's
 

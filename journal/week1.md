@@ -81,7 +81,10 @@ I sent the following request to test the server on port 4567
 curl -X GET http://localhost:4567/api/activities/home -H "Accept: application/json" -H "Content-Type: application/json"
 ```
 
-Here is my containerized ![Backedne App](assets/backend%20data%20from%20container.png)
+Here is my containerized Backend appllication looks:
+
+
+![Backedne App](assets/backend%20data%20from%20container.png)
 
 
 ### To Gain Access to the Container

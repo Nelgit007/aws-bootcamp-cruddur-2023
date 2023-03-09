@@ -331,7 +331,7 @@ psql Upostgres --host locallhost
 See my result below:
 
 
-!(Running postgres Database)[]
+![Running postgres Database](assets/postgres%20Database%20runnig.png)
 
 
 

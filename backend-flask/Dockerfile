@@ -11,6 +11,9 @@ COPY requirements.txt requirements.txt
 #Thus will install python libraries/dependencies needed to run the app
 RUN pip3 install -r requirements.txt
 
+#Installing wget into my image
+RUN apt-get update && apt-get install -y wget
+
 #This command copies everything in /Backend-flask dir outside the container to
 # the /Backend-flask dir inside the container
 COPY . .

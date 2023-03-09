@@ -236,6 +236,7 @@ docker exec CONTAINER_ID -it /bin/bash
 
 > You can just right click a container and see logs in VSCode with Docker extension
 
+
 ### Delete an Image
 
 ```sh
@@ -251,3 +252,96 @@ docker image rm backend-flask --force
 ```sh
 FLASK_ENV=production PORT=8080 docker run -p 4567:4567 -it backend-flask
 ```
+
+
+## Adding DynamoDB Local and Postgres
+
+Oweing to the fact that Postgres and DynamoDB local would be a requirement for future labs
+I have been tasked to can bring them in as containers and reference them externally.
+
+Integrating the following into the existing docker-compose.yaml file:
+
+### Postgres
+
+Adding a new DB service.
+
+```yaml
+services:
+  db:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local
+```
+
+I added the following command to my gitpod.yaml file to install the postgres client into Gitpod
+
+```sh
+  - name: postgres
+    init: |
+      curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
+      echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+      sudo apt update
+      sudo apt install -y postgresql-client-13 libpq-dev
+```
+
+
+### DynamoDB Local
+
+```yaml
+services:
+  dynamodb-local:
+    # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
+    # We needed to add user:root to get this working.
+    user: root
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000"
+    # We are mapping docker dynamo DB to the local dir, we are storing data over
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+```
+
+Example of using DynamoDB local
+https://github.com/100DaysOfCloud/challenge-dynamodb-local
+
+## Volumes
+
+directory volume mapping
+
+```yaml
+volumes: 
+- "./docker/dynamodb:/home/dynamodblocal/data"
+```
+
+named volume mapping
+
+```yaml
+volumes: 
+  - db:/var/lib/postgresql/data
+
+volumes:
+  db:
+    driver: local
+```
+
+
+
+
+
+
+
+
+
+

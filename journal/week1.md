@@ -313,6 +313,16 @@ services:
     working_dir: /home/dynamodblocal
 ```
 
+Added a Database explorer from vscode extention.
+
+
+Ran the postgresql-server in docker with port binding using:
+
+```sh
+psql --host locallhost
+```
+
+
 Example of using DynamoDB local
 https://github.com/100DaysOfCloud/challenge-dynamodb-local
 
@@ -335,11 +345,6 @@ volumes:
   db:
     driver: local
 ```
-
-
-
-
-
 
 
 

@@ -357,6 +357,16 @@ volumes:
 ```
 
 
+### Some Docker Best Practise
+
+**BEST PRACTISES**
+
+- A best practice is to include multiple run command as part of a single run instruction, - all glued together with double  ampersand (&&) and backlash \**.
+
+- Leverage the build cache
+
+- 
+
 
 
 

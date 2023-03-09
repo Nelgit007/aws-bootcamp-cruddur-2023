@@ -319,10 +319,8 @@ I set up the postgres and DynamoDB to ensure it was runnig.
 
 I carried out some test using a Database Explorer. 
 
-I ran the postgresql-server in docker with port binding using:
+Because I ran the postgresql-server in docker with port binding using, I had to tell psql to use TCP-socket with:
 
-
-CMD:
 
 ```sh
 psql Upostgres --host locallhost

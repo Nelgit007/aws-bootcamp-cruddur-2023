@@ -313,17 +313,29 @@ services:
     working_dir: /home/dynamodblocal
 ```
 
-Added a Database explorer from vscode extention.
+### Added a Database explorer from vscode extention and tested the state of my DB.
+
+I set up the postgres and DynamoDB to ensure it was runnig.
+
+I carried out some test using a Database Explorer. 
+
+I ran the postgresql-server in docker with port binding using:
 
 
-Ran the postgresql-server in docker with port binding using:
+CMD:
 
 ```sh
-psql --host locallhost
+psql Upostgres --host locallhost
 ```
 
+See my result below:
 
-Example of using DynamoDB local
+
+!(Running postgres Database)[]
+
+
+
+More Example of using DynamoDB local
 https://github.com/100DaysOfCloud/challenge-dynamodb-local
 
 ## Volumes

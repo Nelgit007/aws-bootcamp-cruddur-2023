@@ -68,11 +68,8 @@ FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
 ```
 
+I hard-codded a span to the homePageService in backend flask, to  create one.
 
 
 
 
-
-
-
-When creating a new dataset in Honeycomb it will provide all these installation insturctions

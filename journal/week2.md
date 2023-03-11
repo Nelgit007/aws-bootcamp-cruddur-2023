@@ -70,6 +70,18 @@ RequestsInstrumentor().instrument()
 
 I hard-codded a span to the homePageService in backend flask, to  create one.
 
+I followed the OpenTelemetry for Python doccumentation to create a span for the `/api/activities/home` service:
+
+[docs:](https://docs.honeycomb.io/getting-data-in/opentelemetry/python/)
+
+I added Attributes to the span:
+
+```py
+span = trace.get_current_span()
+span.set_attribute("user.id", user.id())
+```
+
+
 
 
 

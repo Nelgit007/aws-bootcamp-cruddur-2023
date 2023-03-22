@@ -74,11 +74,20 @@ I followed the OpenTelemetry for Python doccumentation to create a span for the 
 
 [docs:](https://docs.honeycomb.io/getting-data-in/opentelemetry/python/)
 
-I added Attributes to the span:
+I added Atrributes to spans following the docs:
 
 ```py
+from opentelemetry import trace
+
+with tracer.start_as_current_span("home-activities-mock-date") as outer_span:
+```
+
+I added more Attributes to the span:
+```py
 span = trace.get_current_span()
-span.set_attribute("user.id", user.id())
+span.set_attribute("app.now", now.isoformat)
+
+span.set_attribute("app.result_lenght", len(results))
 ```
 
 

@@ -94,18 +94,62 @@ span.set_attribute("app.result_lenght", len(results))
 
 ### Instrumenting AWS X-Ray for Backend-Flask
 
-I followed the ![guide](https://aws.amazon.com/sdk-for-python/) in the AWS SDK for Python (BOTO 3)
+I followed the [guide](https://github.com/aws/aws-xray-sdk-python) in the AWS-XRAY-SDK:
 
+i added the aws-xray-sdk to the `requirements.txt`
 
+```py
+aws-xray-sdk
+```
 
+Install the python dendencies for the aws-xray-sdk with:
 
+```sh
+pip install -r requirements.txt
+```
 
+I added the aws-xray-sdk Recorder and Malware to `app.py`
 
+```py
+from aws_xray_sdk.core import xray_recorder
+from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
 
+xray_url = os.getenv("AWS_XRAY_URL")
+xray_recorder.configure(service='Cruddur', dynamic_naming=xray_url)
+XRayMiddleware(app, xray_recorder)
+```
 
+### Setup the AWS X-Ray Resources
 
+I added `aws/json/xray.json`
 
+```json
+{
+  "SamplingRule": {
+      "RuleName": "Cruddur",
+      "ResourceARN": "*",
+      "Priority": 9000,
+      "FixedRate": 0.1,
+      "ReservoirSize": 5,
+      "ServiceName": "backend-flask",
+      "ServiceType": "*",
+      "Host": "*",
+      "HTTPMethod": "*",
+      "URLPath": "*",
+      "Version": 1
+  }
+}
+```
 
+I created an X-Ray Group
+```sh
+
+aws xray create-group \
+   --group-name "Cruddur" \
+   --filter-expression "service(\"backend-flask\")"
+```
+
+I created a sampling rule.
 
 
 

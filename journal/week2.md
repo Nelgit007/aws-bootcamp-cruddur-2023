@@ -90,6 +90,21 @@ span.set_attribute("app.now", now.isoformat)
 span.set_attribute("app.result_lenght", len(results))
 ```
 
+## X-Ray
+
+### Instrumenting AWS X-Ray for Backend-Flask
+
+I followed the ![guide](https://aws.amazon.com/sdk-for-python/) in the AWS SDK for Python (BOTO 3)
+
+
+
+
+
+
+
+
+
+
 
 
 

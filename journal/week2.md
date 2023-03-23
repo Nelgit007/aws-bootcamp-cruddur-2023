@@ -150,6 +150,21 @@ aws xray create-group \
 ```
 
 I created a sampling rule.
+```sh
+aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
+```
+
+### Insatalling X-Ray Daemon
+
+[Install X-ray Daemon](https://docs.aws.amazon.com/xray/latest/devguide/xray-daemon.html)
+
+[Github aws-xray-daemon](https://github.com/aws/aws-xray-daemon)
+[X-Ray Docker Compose example](https://github.com/marjamis/xray/blob/master/docker-compose.yml)
+
+
+
+
+
 
 
 

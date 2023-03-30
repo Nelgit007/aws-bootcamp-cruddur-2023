@@ -90,6 +90,10 @@ span.set_attribute("app.now", now.isoformat)
 span.set_attribute("app.result_lenght", len(results))
 ```
 
+Here is a sample Telemetry from Honeycom:
+![Traces]()
+
+
 ## X-Ray
 
 ### Instrumenting AWS X-Ray for Backend-Flask
@@ -154,7 +158,7 @@ I created a sampling rule.
 aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 ```
 
-### Insatalling X-Ray Daemon
+### Installing X-Ray Daemon
 
 [Install X-ray Daemon](https://docs.aws.amazon.com/xray/latest/devguide/xray-daemon.html)
 
@@ -162,7 +166,7 @@ aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 [X-Ray Docker Compose example](https://github.com/marjamis/xray/blob/master/docker-compose.yml)
 
 
-### I Added the Deamon Service to Docker Compose
+### I Added the Daemon Service to Docker Compose
 
 ```yml
   xray-daemon:
@@ -184,6 +188,31 @@ I added the two env vars below to the backend-flask in the `docker-compose.yml` 
       AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
 ```
 
+### Creating Traces in aws-x-ray:
 
+### I added a custom segment/sub-segment to the home_activities services
 
+I followed the openTEL with aws-x-ray SDK python guide:
+
+I imported the x-ray recorder to my `notifications_actitivites` service:
+
+```py
+from aws_xray_sdk.core import xray_recorder
+```
+
+Using the context managers for implicit recordeing i addded this code to my `notifications_activities` service
+
+```py
+with xray_recorder.in_segment('segment_name') as segment:
+
+#Ensured my code was inside the xray_recorder block
+  segment.put_metadata('key', dict, 'namespace')
+```
+
+I added a dictionary for metadata:
+```py
+x_ray_dict = {
+  "now": now.isoformat()
+  }
+```
 

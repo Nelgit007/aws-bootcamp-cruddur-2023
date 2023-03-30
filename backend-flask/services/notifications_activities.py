@@ -3,12 +3,14 @@ from aws_xray_sdk.core import xray_recorder
 
 class NotificationsActivities:
   def run():
-    with xray_recorder.in_segment('notifications_activities') as segment:
+      # X-RAY ------------------
+      segment = xray_recorder.begin_segment('notifications_activities')
+      # model = {
+      #   "error": None,
+      #   "data": None
+      # }
+
       now = datetime.now(timezone.utc).astimezone()
-      x_ray_dict = {
-        "now": now.isoformat()
-      }
-      segment.put_metadata('key', dict, 'namespace')
       results = [{
         'uuid': '68f126b0-1ceb-4a33-88be-d90fa7109eee',
         'handle':  'Fred Nelson',
@@ -30,5 +32,12 @@ class NotificationsActivities:
         }],
       }
       ]
+
+      # X-RAY --------------
+      dict = {
+        'now': now.isoformat()
+      }
+      segment.put_metadata('key', dict, 'namespace')
+      subsegment = xray_recorder.begin_subsegment('mock-data')
       return results
     

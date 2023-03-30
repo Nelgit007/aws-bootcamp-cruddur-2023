@@ -200,13 +200,14 @@ I imported the x-ray recorder to my `notifications_actitivites` service:
 from aws_xray_sdk.core import xray_recorder
 ```
 
-Using the context managers for implicit recordeing i addded this code to my `notifications_activities` service
+Using the default begin/end function for implicit recording, i addded this code to my `notifications_activities` service
 
 ```py
-with xray_recorder.in_segment('segment_name') as segment:
+# Start a segment
+segment = xray_recorder.begin_segment('segment_name')
 
-#Ensured my code was inside the xray_recorder block
-  segment.put_metadata('key', dict, 'namespace')
+# Start a subsegment
+subsegment = xray_recorder.begin_subsegment('subsegment_name')
 ```
 
 I added a dictionary for metadata:

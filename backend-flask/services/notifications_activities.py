@@ -2,7 +2,8 @@ from datetime import datetime, timedelta, timezone
 from aws_xray_sdk.core import xray_recorder
 
 class NotificationsActivities:
-  def run():
+  def run(logger):
+    logger.info('NotificationsActivities')
     try:
       # X-RAY ------------------
       segment = xray_recorder.begin_segment('notifications_activities')

@@ -40,6 +40,13 @@ LOGGER.addHandler(console_handler)
 LOGGER.addHandler(cw_handler)
 LOGGER.info("testing_logs_in_cw")
 
+# Rollbar ----------
+## Rollbar init code. You'll need the following to use Rollbar with Flask.
+## This requires the 'blinker' package to be installed
+import rollbar
+import rollbar.contrib.flask
+from flask import got_request_exception
+
 # Honeycomb --------------
 # Initialize tracing and an exporter that can send data to Honeycomb
 provider = TracerProvider()
@@ -52,7 +59,6 @@ tracer = trace.get_tracer(__name__)
 xray_url = os.getenv("AWS_XRAY_URL")
 xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
 
-
 app = Flask(__name__)
 
 # Honeycomb -----------
@@ -62,6 +68,24 @@ RequestsInstrumentor().instrument()
 
 # AWS X-RAY --------
 XRayMiddleware(app, xray_recorder)
+
+# Rollbar ------------------
+rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+@app.before_first_request
+def init_rollbar():
+    """init rollbar module"""
+    rollbar.init(
+        # access token
+        rollbar_access_token,
+        # environment name
+        'cruddur',
+        # server root directory, makes tracebacks prettier
+        root=os.path.dirname(os.path.realpath(__file__)),
+        # flask already sets up logging
+        allow_logging_basic_config=False)
+
+    # send exceptions from `app` to rollbar, using flask's signal system.
+    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
 
 frontend = os.getenv('FRONTEND_URL')
 backend = os.getenv('BACKEND_URL')
@@ -73,6 +97,11 @@ cors = CORS(
   allow_headers="content-type,if-modified-since",
   methods="OPTIONS,GET,HEAD,POST"
 )
+
+@app.route('/rollbar/test')
+def rollbar_test():
+    rollbar.report_message('Hello World!', 'warning')
+    return "Hello World!"
 
 @app.after_request
 def after_request(response):

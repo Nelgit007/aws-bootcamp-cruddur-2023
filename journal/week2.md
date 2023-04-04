@@ -217,3 +217,65 @@ x_ray_dict = {
   }
 ```
 
+
+## CloudWatch Logs
+
+
+I added the log management service: CloudWatch to the `requirements.txt`
+
+```
+watchtower
+```
+
+I installed the package using:
+```sh
+pip install -r requirements.txt
+```
+
+Importing the watctower logging in ti `app.py`:
+
+```py
+import watchtower
+import logging
+from time import strftime
+`
+
+I added the configuration to Logger to Use CloudWatch
+```py
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+LOGGER.addHandler(console_handler)
+LOGGER.addHandler(cw_handler)
+LOGGER.info("testing Logs in CW")
+```
+
+Logging in an Error using cloudwatch logs:
+
+```py
+@app.after_request
+def after_request(response):
+    timestamp = strftime('[%Y-%b-%d %H:%M]')
+    LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
+    return response
+```
+
+Logging some data in an API endpoint
+```py
+LOGGER.info('testing Logs in CW! from  /api/activities/notifications')
+```
+
+I Set the env var in my your backend-flask for `docker-compose.yml` file.
+
+```yml
+      AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+```
+
+
+
+
+
+

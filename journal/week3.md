@@ -46,12 +46,7 @@ Under Apps integration in cognnito, I found my `client_id`
 
 ## Conditionally show components based on logged in or logged out
 
-I changed some code inside of `HomeFeedPage.js`
-
-```js
-## Conditionally show components based on logged in or logged out
-
-Inside our `HomeFeedPage.js`
+I changed some code inside of `HomeFeedPage.js`:
 
 ```js
 import { Auth } from 'aws-amplify';
@@ -123,7 +118,7 @@ I passed in User information to `DesktopNavigation` and `DesktopSidebar' pages i
 <DesktopSidebar user={user} />
 ```
 
-We'll update `ProfileInfo.js`
+Updated `ProfileInfo.js` with the cdoe below:
 
 ```js
 import { Auth } from 'aws-amplify';
@@ -197,7 +192,7 @@ export default function DesktopNavigation(props) {
 }
 ```
 
-We'll update `ProfileInfo.js`
+Updated `ProfileInfo.js` with the code below:
 
 ```js
 import { Auth } from 'aws-amplify';
@@ -212,7 +207,7 @@ const signOut = async () => {
 }
 ```
 
-We'll rewrite `DesktopSidebar.js` so that it conditionally shows components in case you are logged in or not.
+Re-wrote `DesktopSidebar.js` so that it conditionally shows components in case you are logged in or not.
 
 ```js
 import './DesktopSidebar.css';

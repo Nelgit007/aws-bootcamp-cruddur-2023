@@ -286,7 +286,9 @@ export default function DesktopNavigation(props) {
 }
 ```
 
-## Signin Page
+## The Signin Page
+
+I set up amplify in the `signinpage` in react app.
 
 ```js
 import { Auth } from 'aws-amplify';
@@ -294,33 +296,25 @@ import { Auth } from 'aws-amplify';
 const [errors, setErrors] = React.useState('');
 
 const onsubmit = async (event) => {
-  setCognitoErrors('')
-  event.preventDefault();
-  try {
-    Auth.signIn(username, password)
-      .then(user => {
-        localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
-        window.location.href = "/"
-      })
-      .catch(err => { console.log('Error!', err) });
-  } catch (error) {
-    if (error.code == 'UserNotConfirmedException') {
-      window.location.href = "/confirm"
-    }
-    setCognitoErrors(error.message)
+    setErrors('')
+    event.preventDefault();
+    Auth.signIn(email, password)
+    .then(user => {
+      localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
+      window.location.href = "/"
+    })
+    .catch(error => { 
+      if (error.code == 'UserNotConfirmedException') {
+        window.location.href = "/confirm"
+      }
+      setErrors(error.message)
+    });
+    return false
   }
-  return false
-}
 
-let errors;
-if (cognitoErrors){
-  errors = <div className='errors'>{cognitoErrors}</div>;
-}
-
-// just before submit component
-{errors}
 ```
 
+I 
 
 
 

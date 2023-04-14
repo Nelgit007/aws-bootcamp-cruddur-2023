@@ -10,7 +10,9 @@ import ActivityForm from '../components/ActivityForm';
 import ReplyForm from '../components/ReplyForm';
 
 // [TODO] Authenication
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
+// Updated Authentication
+
 
 export default function HomeFeedPage() {
   const [activities, setActivities] = React.useState([]);
@@ -38,7 +40,7 @@ export default function HomeFeedPage() {
     }
   };
 
-    // check if we are authenicated
+  // check if we are authenicated
   const checkAuth = async () => {
     Auth.currentAuthenticatedUser({
       // Optional, By default is false. 

@@ -314,7 +314,88 @@ const onsubmit = async (event) => {
 
 ```
 
-I 
+I resolved the issue of forcing password change in AWS Cognito, from [stack-overflow](https://stackoverflow.com/questions/40287012/how-to-change-user-status-force-change-password).
 
+This changed user's password and update status via AWS CLI:
 
+```sh
+aws cognito-idp admin-set-user-password \
+  --user-pool-id <your-user-pool-id> \
+  --username <username> \
+  --password <password> \
+  --permanent
+```
+
+I added more attributes to user from `cognito-user-pool`:
+
+## Signup Page
+
+```js
+import { Auth } from 'aws-amplify';
+
+const [cognitoErrors, setCognitoErrors] = React.useState('');
+
+const onsubmit = async (event) => {
+    event.preventDefault();
+    setErrors('')
+    try {
+      const { user } = await Auth.signUp({
+        username: email,
+        password: password,
+        attributes: {
+            name: name,
+            email: email,
+            preferred_username: username,
+        },
+        autoSignIn: { // optional - enables auto sign in after user is confirmed
+            enabled: true,
+        }
+      });
+      console.log(user);
+      window.location.href = `/confirm?email=${email}`
+    } catch (error) {
+        console.log(error);
+        setErrors(error.message)
+    }
+    return false
+  }
+
+```
+
+## Confirmation Page
+
+```js
+import { Auth } from 'aws-amplify';
+
+ const resend_code = async (event) => {
+    setErrors('')
+    try {
+      await Auth.resendSignUp(email);
+      console.log('code resent successfully');
+      setCodeSent(true)
+    } catch (err) {
+      // does not return a code
+      // does cognito always return english
+      // for this to be an okay match?
+      console.log(err)
+      if (err.message == 'Username cannot be empty'){
+        setErrors("You need to provide an email in order to send Resend Activiation Code")   
+      } else if (err.message == "Username/client id combination not found."){
+        setErrors("Email is invalid or cannot be found.")   
+      }
+    }
+  }
+
+const onsubmit = async (event) => {
+  event.preventDefault();
+  setCognitoErrors('')
+  try {
+    await Auth.confirmSignUp(email, code);
+    window.location.href = "/"
+  } catch (error) {
+    setCognitoErrors(error.message)
+  }
+  return false
+}
+```
 

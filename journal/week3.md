@@ -399,3 +399,58 @@ const onsubmit = async (event) => {
 }
 ```
 
+### Setting up the Auth for Cognito in backend-flask
+
+Passing the access token stored in local storage in signip page, alongside our API from homefeeds: 
+
+## Authenticating Server Side
+
+I added to the `HomeFeedPage.js` a header to pass the access token;
+
+```js
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("access_token")}`
+  }
+```
+To view heders in request in flask,
+I replaced te cors in the `app.py` with:
+
+```py
+cors = CORS(
+  app, 
+  resources={r"/api/*": {"origins": origins}},
+  headers=['Content-Type', 'Authorization'], 
+  expose_headers='Authorization',
+  methods="OPTIONS,GET,HEAD,POST"
+)
+```
+
+Implimentomg a library to go to server side and rab access taken verification:
+
+Following the documentattion from the [Flask-AWSCognito](https://github.com/cgauge/Flask-AWSCognito) Library:
+
+I installed Flask-AWSCognito Library:
+
+```py
+Flask-AWSCognito
+```
+
+In the `app.py` I imported the cognito_jwt_token_access lib
+
+```py
+from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVerifyError
+```
+
+I initialised the jws_token in python-flask in `app.py`
+
+```py
+cognito_jwt_token = CognitoJwtToken(
+  user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"), 
+  user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
+  region=os.getenv("AWS_DEFAULT_REGION")
+)
+```
+
+
+
+
